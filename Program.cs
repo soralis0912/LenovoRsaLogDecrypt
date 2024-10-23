@@ -13,8 +13,14 @@ class LenovoRsaLogDecrypt
         string encryptFile = args[0];
 
         string decryptSaveFile = args[1];
-
-        decryptor.Decrypt2File(encryptFile, decryptSaveFile);
-        Console.WriteLine("処理が完了しました。");
+        try
+        {
+            decryptor.Decrypt2File(encryptFile, decryptSaveFile);
+            Console.WriteLine("処理が完了しました。");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message.ToString());
+        }
     }
 }
