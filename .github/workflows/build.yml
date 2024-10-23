@@ -1,0 +1,33 @@
+name: Build
+
+on:
+  push:
+    paths-ignore:
+      - "*.md"
+      - ".git*"
+      - "LICENSE.txt"
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build
+    runs-on: windows-latest
+    steps:
+
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Add msbuild to PATH
+        uses: microsoft/setup-msbuild@v2
+        with:
+          msbuild-architecture: x64
+
+      - name: MSBuild
+        run: MSBuild .\LenovoRsaLogDecrypt.sln -property:Configuration=Debug
+
+      - name: Upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: LenovoRsaLogDecrypt
+          path: bin\Debug
+          if-no-files-found: error
