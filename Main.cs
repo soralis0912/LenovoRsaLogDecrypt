@@ -59,15 +59,22 @@ class LenovoRsaLogDecrypt
 
     private static Assembly? LoadFromCustomFolder(object? sender, ResolveEventArgs args)
     {
-        string dllFolder = AppDomain.CurrentDomain.BaseDirectory;
-
-        string assemblyPath = Path.Combine(dllFolder, new AssemblyName(args.Name).Name + ".dll");
-
-        if (File.Exists(assemblyPath))
+        List<string> searchDirectories = new List<string>
         {
-            return Assembly.LoadFrom(assemblyPath);
+            @"C:\Program Files\Software Fix",
+            AppDomain.CurrentDomain.BaseDirectory,  
+        };
+
+        foreach (var directory in searchDirectories)
+        {
+            string assemblyPath = Path.Combine(directory, new AssemblyName(args.Name).Name + ".dll");
+
+            if (File.Exists(assemblyPath))
+            {
+                return Assembly.LoadFrom(assemblyPath);
+            }
         }
 
-        throw new FileNotFoundException($"DLL '{assemblyPath}' が見つかりませんでした。");
+        throw new FileNotFoundException($"DLL '{args.Name}' が見つかりませんでした。");
     }
 }
