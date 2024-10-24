@@ -57,7 +57,7 @@ jobs:
         shell: powershell
         run: |
           nuget restore
-          & "C:\Program Files\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin\MSBuild.exe" .\LenovoRsaLogDecrypt.sln -property:Configuration=Debug
+          & MSBuild.exe .\LenovoRsaLogDecrypt.sln -property:Configuration=Debug
 
       - name: Upload Debug
         if: github.event.inputs.release != 'true'
@@ -72,7 +72,7 @@ jobs:
         shell: powershell
         run: |
           nuget restore
-          & "C:\Program Files\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin\MSBuild.exe" .\LenovoRsaLogDecrypt.sln -property:Configuration=Release
+          & MSBuild.exe .\LenovoRsaLogDecrypt.sln -property:Configuration=Release
 
       - name: Release
         uses: softprops/action-gh-release@v1
