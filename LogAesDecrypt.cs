@@ -1,4 +1,4 @@
-﻿public interface ILogAesDecrypt
+﻿public interface LogAesDecrypt
 {
     void Decrypt2File(string encryptFile, string decryptSaveFile);
 }

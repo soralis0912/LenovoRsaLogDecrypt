@@ -32,22 +32,26 @@ class LenovoRsaLogDecrypt
 
             object? decryptorInstance = Activator.CreateInstance(decryptorType);
 
-            if (decryptorInstance == null)
-            {
-                throw new Exception("LogAesDecrypt クラスのインスタンス作成に失敗しました。");
-            }
 
-            ILogAesDecrypt? decryptor = decryptorInstance as ILogAesDecrypt;
-
-            if (decryptor == null)
-            {
-                throw new Exception("インターフェース ILogAesDecrypt へのキャストに失敗しました。");
-            }
+            LogAesDecrypt? decryptor = decryptorInstance as LogAesDecrypt;
 
             string encryptFile = args[0];
             string decryptSaveFile = args[1];
+            if (decryptor == null)
+            {
+                MethodInfo? decryptMethod = decryptorType.GetMethod("Decrypt2File");
 
-            decryptor.Decrypt2File(encryptFile, decryptSaveFile);
+                if (decryptMethod == null)
+                {
+                    throw new Exception("Decrypt2File メソッドが見つかりませんでした。");
+                }
+
+                decryptMethod.Invoke(decryptorInstance, new object[] { encryptFile, decryptSaveFile });
+            }
+            else
+            {
+                decryptor.Decrypt2File(encryptFile, decryptSaveFile);
+            }
 
             Console.WriteLine("処理が完了しました。");
         }
