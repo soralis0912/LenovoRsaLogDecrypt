@@ -47,6 +47,7 @@ jobs:
             exit 1
           } else {
             Write-Host "`nNo existing version tag found. Proceeding...`n"
+            exit 0
           }
 
 
