@@ -27,7 +27,6 @@ jobs:
         shell: powershell
         run: |
           $version = (Select-String -Path .\LenovoRsaLogDecrypt.csproj -Pattern '<Version>([^<]+)</Version>').Matches.Groups[1].Value
-          echo "version=$version"
           echo "version=$version" >> $env:GITHUB_ENV
 
       - name: Check tag exists
@@ -84,4 +83,4 @@ jobs:
           tag_name: ${{ env.version }}
           draft: false
           prerelease: false
-          files: bin\Debug\net48\LenovoRsaLogDecrypt.exe
+          files: Release\net48\LenovoRsaLogDecrypt.exe
