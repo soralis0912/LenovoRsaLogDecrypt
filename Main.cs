@@ -37,5 +37,6 @@ class LenovoRsaLogDecrypt {
             Console.WriteLine("エラー：実行に失敗しました。\r\n" +
                 "詳細：\r\n" + e.Message);
         }
+
     }
 }
