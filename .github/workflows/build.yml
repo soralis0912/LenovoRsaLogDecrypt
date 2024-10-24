@@ -27,6 +27,7 @@ jobs:
         shell: powershell
         run: |
           $version = (Select-String -Path .\LenovoRsaLogDecrypt.csproj -Pattern '<Version>([^<]+)</Version>').Matches.Groups[1].Value
+          echo "version=$version"
           echo "version=$version" >> $GITHUB_ENV
 
       - name: Check tag exists
