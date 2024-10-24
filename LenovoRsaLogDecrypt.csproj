@@ -17,5 +17,4 @@
     <NoWarn>CS0168;CS8600;CS8602;CS8604;$(NoWarn)</NoWarn>
   </PropertyGroup>
 
-
 </Project>
