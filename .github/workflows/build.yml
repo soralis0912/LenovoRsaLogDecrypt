@@ -83,4 +83,4 @@ jobs:
           tag_name: ${{ env.version }}
           draft: false
           prerelease: false
-          files: Release\net48\LenovoRsaLogDecrypt.exe
+          files: bin\Release\net48\LenovoRsaLogDecrypt.exe
