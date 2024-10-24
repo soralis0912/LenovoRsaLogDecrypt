@@ -66,8 +66,9 @@ class LenovoRsaLogDecrypt
     {
         List<string> searchDirectories = new List<string>
         {
-            @"C:\Program Files\Software Fix",
             AppDomain.CurrentDomain.BaseDirectory,
+            @"C:\Program Files\Software Fix",
+            @"C:\Program Files\Rescue and Smart Assistant",
         };
 
         foreach (var directory in searchDirectories)
