@@ -7,6 +7,12 @@ on:
       - ".git*"
       - "LICENSE.txt"
   workflow_dispatch:
+    inputs:
+      release:
+        description: 'Release'
+        type: boolean
+        required: true
+        default: false
 
 jobs:
   build:
@@ -22,15 +28,32 @@ jobs:
         with:
           msbuild-architecture: x64
 
-      - name: MSBuild
+      - name: MSBuild Debug
+        if: github.event.inputs.release == 'false'
         shell: cmd
         run: |
           nuget restore
           MSBuild .\LenovoRsaLogDecrypt.sln -property:Configuration=Debug
 
-      - name: Upload
+      - name: Upload Debug
+        if: github.event.inputs.release == 'false'
         uses: actions/upload-artifact@v4
         with:
           name: LenovoRsaLogDecrypt
           path: bin\Debug\net48\LenovoRsaLogDecrypt.exe
+          if-no-files-found: error
+
+      - name: MSBuild Release
+        if: github.event.inputs.release == 'true'
+        shell: cmd
+        run: |
+          nuget restore
+          MSBuild .\LenovoRsaLogDecrypt.sln -property:Configuration=Release
+
+      - name: Upload Release
+        if: github.event.inputs.release == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: LenovoRsaLogDecrypt
+          path: bin\Release\net48\LenovoRsaLogDecrypt.exe
           if-no-files-found: error

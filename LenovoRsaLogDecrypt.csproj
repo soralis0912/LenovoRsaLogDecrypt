@@ -15,6 +15,7 @@
 
   <PropertyGroup>
     <NoWarn>MSB3245;$(NoWarn)</NoWarn>
+    <Version>1.0.0</Version>
   </PropertyGroup>
 
 </Project>
