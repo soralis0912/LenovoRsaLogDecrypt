@@ -7,9 +7,6 @@ using System.Reflection;
 class LenovoRsaLogDecrypt
 {
 
-    private static readonly string DLL = "lenovo.mbg.service.common.log.dll";
-    private static readonly string OriginalDLL = "C:\\Program Files\\Software Fix\\" + DLL;
-
     static void Main(string[] args)
     {
         if (args.Length != 2)
