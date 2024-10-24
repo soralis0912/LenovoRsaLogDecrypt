@@ -1,7 +1,6 @@
-# LenovoRSALogDecrypt
+# LenovoRsaLogDecrypt
 
-`dll`フォルダ直下に`lenovo.mbg.service.common.log.dll`を配置してください。
-
+`LenovoRsaLogDecrypt.exe`と同じフォルダに`lenovo.mbg.service.common.log.dll`を配置してください。
 
 ## 実行方法
 ```

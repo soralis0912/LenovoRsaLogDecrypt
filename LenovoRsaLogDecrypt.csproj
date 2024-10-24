@@ -2,15 +2,20 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net8.0</TargetFramework>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
+    <TargetFramework>net48</TargetFramework>
+    <ImplicitUsings>disable</ImplicitUsings>
+    <Nullable>disable</Nullable>
   </PropertyGroup>
 
   <ItemGroup>
     <Reference Include="lenovo.mbg.service.common.log">
-      <HintPath>dll\lenovo.mbg.service.common.log.dll</HintPath>
+      <HintPath>lenovo.mbg.service.common.log.dll</HintPath>
     </Reference>
   </ItemGroup>
+
+  <PropertyGroup>
+    <NoWarn>CS0168;CS8600;CS8602;CS8604;$(NoWarn)</NoWarn>
+  </PropertyGroup>
+
 
 </Project>

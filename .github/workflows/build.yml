@@ -23,11 +23,13 @@ jobs:
           msbuild-architecture: x64
 
       - name: MSBuild
-        run: MSBuild .\LenovoRsaLogDecrypt.sln -property:Configuration=Debug
+        run: |
+          nuget restore
+          MSBuild .\LenovoRsaLogDecrypt.sln -property:Configuration=Debug
 
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
           name: LenovoRsaLogDecrypt
-          path: bin\Debug
+          path: bin\Debug\net48\LenovoRsaLogDecrypt.exe
           if-no-files-found: error
