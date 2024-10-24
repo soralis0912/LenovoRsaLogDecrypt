@@ -4,6 +4,10 @@ using System.IO;
 using System.Reflection;
 
 class LenovoRsaLogDecrypt {
+
+    private static readonly string DLL = "lenovo.mbg.service.common.log.dll";
+    private static readonly string OriginalDLL = "C:\\Program Files\\Software Fix\\" + DLL;
+
     static void Main(string[] args) {
         if (args.Length != 2) {
             Console.WriteLine("エラー：引数が間違っています。\r\n" +
@@ -20,7 +24,7 @@ class LenovoRsaLogDecrypt {
         try {
             string encryptSrcFile = args[0];
             string decryptDstFile = args[1];
-            Assembly logAssembly = Assembly.LoadFrom("lenovo.mbg.service.common.log.dll");
+            Assembly logAssembly = Assembly.LoadFrom(File.Exists(OriginalDLL) ? OriginalDLL : DLL);
             Type decryptorType = logAssembly.GetType("lenovo.mbg.service.common.log.LogAesDecrypt");
             object decryptorInstance = Activator.CreateInstance(decryptorType);
             MethodInfo decryptMethod = decryptorType.GetMethod("Decrypt2File");
