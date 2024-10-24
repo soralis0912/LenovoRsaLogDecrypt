@@ -42,11 +42,13 @@ jobs:
         shell: powershell
         run: |
           if (${{ steps.check-tag.outputs.exists }} -eq "true") {
-            Write-Host "`nERROR!exists version tag`n"
-            Write-Host "please change LenovoRsaLogDecrypt.csproj  Version "
-            Write-Host ""
+            Write-Host "`nERROR! A version tag already exists.`n"
+            Write-Host "Please change the version in LenovoRsaLogDecrypt.csproj.`n"
             exit 1
+          } else {
+            Write-Host "`nNo existing version tag found. Proceeding...`n"
           }
+
 
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v2
