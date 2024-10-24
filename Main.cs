@@ -1,4 +1,5 @@
-﻿using System;
+﻿using lenovo.mbg.service.common.log;
+using System;
 using System.IO;
 using System.Reflection;
 
@@ -33,20 +34,13 @@ class LenovoRsaLogDecrypt
             object? decryptorInstance = Activator.CreateInstance(decryptorType);
 
 
-            LogAesDecrypt? decryptor = decryptorInstance as LogAesDecrypt;
+            ILogAesDecrypt? decryptor = decryptorInstance as ILogAesDecrypt;
 
             string encryptFile = args[0];
             string decryptSaveFile = args[1];
             if (decryptor == null)
             {
-                MethodInfo? decryptMethod = decryptorType.GetMethod("Decrypt2File");
-
-                if (decryptMethod == null)
-                {
-                    throw new Exception("Decrypt2File メソッドが見つかりませんでした。");
-                }
-
-                decryptMethod.Invoke(decryptorInstance, new object[] { encryptFile, decryptSaveFile });
+                throw new Exception("Decrypt2File メソッドが見つかりませんでした。");
             }
             else
             {
