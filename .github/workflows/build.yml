@@ -23,20 +23,44 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Set environments
+        shell: powershell
+        run: |
+          $version = (Select-String -Path .\LenovoRsaLogDecrypt.csproj -Pattern '<Version>([^<]+)</Version>').Matches.Groups[1].Value
+          echo "version=$version" >> $GITHUB_ENV
+
+      - name: Check tag exists
+        uses: mukunku/tag-exists-action@v1.5.0
+        if: github.event.inputs.release == 'true'
+        id: check-tag
+        with:
+          tag: "${{ env.version }}"
+
+      - name: Release check
+        if: github.event.inputs.release == 'true'
+        shell: powershell
+        run: |
+          if (${{ steps.check-tag.outputs.exists }} -eq "true") {
+            Write-Host "`nERROR!`n既に同じタグが存在します｡`n"
+            Write-Host "build.gradle の versionName を変更してください"
+            Write-Host ""
+            exit 1
+          }
+
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v2
         with:
           msbuild-architecture: x64
 
       - name: MSBuild Debug
-        if: github.event.inputs.release == 'false'
-        shell: cmd
+        if: github.event.inputs.release != 'true'
+        shell: powershell
         run: |
           nuget restore
-          MSBuild .\LenovoRsaLogDecrypt.sln -property:Configuration=Debug
+          & "C:\Program Files\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin\MSBuild.exe" .\LenovoRsaLogDecrypt.sln -property:Configuration=Debug
 
       - name: Upload Debug
-        if: github.event.inputs.release == 'false'
+        if: github.event.inputs.release != 'true'
         uses: actions/upload-artifact@v4
         with:
           name: LenovoRsaLogDecrypt
@@ -45,15 +69,16 @@ jobs:
 
       - name: MSBuild Release
         if: github.event.inputs.release == 'true'
-        shell: cmd
+        shell: powershell
         run: |
           nuget restore
-          MSBuild .\LenovoRsaLogDecrypt.sln -property:Configuration=Release
+          & "C:\Program Files\Microsoft Visual Studio\2022\BuildTools\MSBuild\Current\Bin\MSBuild.exe" .\LenovoRsaLogDecrypt.sln -property:Configuration=Release
 
-      - name: Upload Release
+      - name: Release
+        uses: softprops/action-gh-release@v1
         if: github.event.inputs.release == 'true'
-        uses: actions/upload-artifact@v4
         with:
-          name: LenovoRsaLogDecrypt
-          path: bin\Release\net48\LenovoRsaLogDecrypt.exe
-          if-no-files-found: error
+          tag_name: ${{ env.version }}
+          draft: false
+          prerelease: false
+          files: bin\Debug\net48\LenovoRsaLogDecrypt.exe
