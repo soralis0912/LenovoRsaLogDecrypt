@@ -41,8 +41,8 @@ jobs:
         shell: powershell
         run: |
           if (${{ steps.check-tag.outputs.exists }} -eq "true") {
-            Write-Host "`nERROR!`næ—¢ã«åŒã˜ã‚¿ã‚°ãŒå­˜åœ¨ã—ã¾ã™ï½¡`n"
-            Write-Host "build.gradle ã® versionName ã‚’å¤‰æ›´ã—ã¦ãã ã•ã„"
+            Write-Host "`nERROR!`nŠù‚É“¯‚¶ƒ^ƒO‚ª‘¶İ‚µ‚Ü‚·¡`n"
+            Write-Host "LenovoRsaLogDecrypt.csproj ‚Ì Version ‚ğ•ÏX‚µ‚Ä‚­‚¾‚³‚¢"
             Write-Host ""
             exit 1
           }
