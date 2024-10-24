@@ -23,6 +23,7 @@ jobs:
           msbuild-architecture: x64
 
       - name: MSBuild
+        shell: cmd
         run: |
           nuget restore
           MSBuild .\LenovoRsaLogDecrypt.sln -property:Configuration=Debug
