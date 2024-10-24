@@ -28,7 +28,7 @@ jobs:
         run: |
           $version = (Select-String -Path .\LenovoRsaLogDecrypt.csproj -Pattern '<Version>([^<]+)</Version>').Matches.Groups[1].Value
           echo "version=$version"
-          echo "version=$version" >> $GITHUB_ENV
+          echo "version=$version" >> $env:GITHUB_ENV
 
       - name: Check tag exists
         uses: mukunku/tag-exists-action@v1.5.0
@@ -49,7 +49,6 @@ jobs:
             Write-Host "`nNo existing version tag found. Proceeding...`n"
             exit 0
           }
-
 
       - name: Add msbuild to PATH
         uses: microsoft/setup-msbuild@v2
