@@ -41,8 +41,8 @@ jobs:
         shell: powershell
         run: |
           if (${{ steps.check-tag.outputs.exists }} -eq "true") {
-            Write-Host "`nERROR!`n既に同じタグが存在します｡`n"
-            Write-Host "LenovoRsaLogDecrypt.csproj の Version を変更してください"
+            Write-Host "`nERROR!exists version tag`n"
+            Write-Host "please change LenovoRsaLogDecrypt.csproj  Version "
             Write-Host ""
             exit 1
           }
