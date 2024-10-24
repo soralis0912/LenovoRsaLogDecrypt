@@ -75,6 +75,7 @@ jobs:
         run: |
           nuget restore
           & MSBuild.exe .\LenovoRsaLogDecrypt.sln -property:Configuration=Release
+          & cp bin\Release\net48\LenovoRsaLogDecrypt.exe LenovoRsaLogDecrypt.exe
 
       - name: Release
         uses: softprops/action-gh-release@v1
